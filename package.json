@@ -1,0 +1,22 @@
+{
+  "name": "geo-server",
+  "version": "0.0.1",
+  "description": "Geo server app.js.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yoman07/geo_server.git"
+  },
+  "keywords": [
+    "geo server",
+    "websocket"
+  ],
+  "author": "Roman-Barzyczak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yoman07/geo_server.git/issues"
+  }
+}

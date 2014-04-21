@@ -1,4 +1,7 @@
 // app.js
+var server = http.createServer(app);
+server.listen(port);
+
 var express = require("express");
 var logfmt = require("logfmt");
 var app = express();

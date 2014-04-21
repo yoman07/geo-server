@@ -18,5 +18,12 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/yoman07/geo_server.git/issues"
+  },
+  "dependencies": {
+    "logfmt": "^1.1.2",
+    "express": "^4.0.0"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }

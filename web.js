@@ -1,4 +1,7 @@
 // app.js
+
+var http = require('http'); 
+
 var server = http.createServer(app);
 server.listen(port);
 

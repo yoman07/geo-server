@@ -1,5 +1,7 @@
 <html>
   <head>
+    <script src="/socket.io/socket.io.js"></script>
+
     <style>
       body {
         font-family: "Helvetica Neue", helvetica, arial;
@@ -18,13 +20,22 @@
     </style>
 
     <script>
-      var host = location.origin.replace(/^http/, 'ws')
-      var ws = new WebSocket(host);
-      ws.onmessage = function (event) {
+
+      var socket = io.connect(window.location.hostname);
+
+
+      socket.emit('connect',JSON.stringify(connectionMessage));
+
+
+      socket.on('user_added', function (data) {
         var li = document.createElement('li');
         li.innerHTML = JSON.parse(event.data);
         document.querySelector('#pings').appendChild(li);
-      };
+      });
+
+
+
+
     </script>
   </head>
   <body>

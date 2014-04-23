@@ -1,12 +1,14 @@
 var express = require('express'),
-    app = express(),
-    io = require('socket.io').listen(app);
+    app = express()
+  , http = require('http')
+  , server = http.createServer(app)
+  , io = require('socket.io').listen(server);
+
 
 var port = process.env.PORT || 5000; // Use the port that Heroku provides or default to 5000
-app.listen(port, function() {
-  console.log("Express server listening");
-});
 
+// listen for new web clients:
+server.listen(port);
 
 app.use(express.static(__dirname + '/'));
 
@@ -19,11 +21,15 @@ var usersSockets = {};
 console.log('websocket server created');
 
 io.sockets.on('connection', function (socket) {
-  io.sockets.emit('status', { status: status }); // note the use of io.sockets to emit but socket.on to listen
-  socket.on('reset', function (data) {
-    status = "War is imminent!";
-    io.sockets.emit('status', { status: status });
-  });
+
+
+
+    console.log('connection start');
+
+    socket.on('reset', function (data) {
+      status = "War is imminent!";
+      io.sockets.emit('status', { status: status });
+    });
 
       socket.on('close', function() {
         console.log('websocket connection close');
@@ -31,6 +37,7 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('connect', function(data) {
         socket.user = data.nick;
+        console.log('connect user' + data.nick);
         socket.send("user_added", function() {} );
     });
     socket.on('position_update', function(data) {

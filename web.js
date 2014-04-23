@@ -1,8 +1,8 @@
-var express = require('express'),
-    app = express()
-  , http = require('http')
-  , server = http.createServer(app)
-  , io = require('socket.io').listen(server);
+var express = require('express')
+  , app     = express()
+  , http    = require('http')
+  , server  = http.createServer(app)
+  , io      = require('socket.io').listen(server);
 
 
 var port = process.env.PORT || 5000; // Use the port that Heroku provides or default to 5000
@@ -23,6 +23,11 @@ console.log('websocket server created');
 io.sockets.on('connection', function (socket) {
 
 
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+
 
     console.log('connection start');
 
@@ -37,9 +42,10 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('connect', function(data) {
         socket.user = data.nick;
-        console.log('connect user' + data.nick);
-        socket.send("user_added", function() {} );
+        console.log('connect user ' + data.nick);
+        socket.broadcast.emit('user_added', {logged_user : data.nick});
     });
+
     socket.on('position_update', function(data) {
          console.log(data);
          if(data.x && data.y) {
@@ -61,6 +67,3 @@ io.sockets.on('connection', function (socket) {
      });
 
 });
-
-
-

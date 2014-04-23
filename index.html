@@ -1,6 +1,7 @@
 <html>
   <head>
     <script src="/socket.io/socket.io.js"></script>
+
 <!--http://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js-->
     <style>
       body {
@@ -21,16 +22,30 @@
 
     <script>
 
+      function makeid()
+      {
+          var text = "";
+          var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+          for( var i=0; i < 5; i++ )
+              text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+          return text;
+      }
       var socket = io.connect(window.location.hostname);
 
 
-      socket.emit('connect',JSON.stringify(connectionMessage));
+      socket.on('news', function (data) {
+        console.log(data);
+        socket.emit('my other event', { my : 'data' });
+      });
+
+      socket.emit('connect',{ nick: makeid() });
+
 
 
       socket.on('user_added', function (data) {
-        var li = document.createElement('li');
-        li.innerHTML = JSON.parse(event.data);
-        document.querySelector('#pings').appendChild(li);
+        console.log(data);
       });
 
 

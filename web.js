@@ -54,10 +54,11 @@ io.sockets.on('connection', function (socket) {
            
            console.log('socketUster ' + socketUser);
            if(socketUser) { 
-            socket.broadcast.emit('position_update', { "user" : socket.user,
+            socket.broadcast.emit('position_update', { 
+            						"user" : socket.user,
                                     "position" : {
-                                    "x" : data.x,
-                                    "y" : data.y
+                                    "lat" : data.latitude,
+                                    "long" : data.longitude
                                  }});
 
            } else {

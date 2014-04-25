@@ -1,14 +1,16 @@
-Node.js server for exchange information about GPS position.
-
+GeoServer - Node.js server
 ========
 
-GeoServer is a simple, scalable web-based gps position server built on [Node.js](http://nodejs.org).
-
+GeoServer is a simple, scalable web-based gps position server built on [Node.js](http://nodejs.org) for exchange information about GPS position.
 
 Client
 ------
 
-Now client is available for Android with full client demo application https://github.com/yoman07/PhotoShoter/
+Android class responsible for connection with GeoServer https://github.com/yoman07/PhotoShoter/blob/master/PhotoShoterModule/src/main/java/com/photoshoter/SocketClient.java
+
+for using this client on Android you need socket.io library https://github.com/Gottox/socket.io-java-client
+
+Full Android demo client application https://github.com/yoman07/PhotoShoter/
 
 
 Events

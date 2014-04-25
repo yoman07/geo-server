@@ -23,27 +23,14 @@ console.log('websocket server created');
 io.sockets.on('connection', function (socket) {
 
 
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
 
-
-    console.log('connection start');
-
-    socket.on('reset', function (data) {
-      status = "War is imminent!";
-      io.sockets.emit('status', { status: status });
-    });
-
-      socket.on('close', function() {
+    socket.on('close', function() {
+        socket.broadcast.emit('close', {"fb_id" : socket.user});
         console.log('websocket connection close');
     });
 
     socket.on('connect', function(data) {
-        socket.user = data.nick;
-        console.log('connect user ' + data.nick);
-        socket.broadcast.emit('user_added', {logged_user : data.nick});
+        socket.user = data.fb_id;
     });
 
     socket.on('position_update', function(data) {
@@ -54,8 +41,8 @@ io.sockets.on('connection', function (socket) {
            
            console.log('socketUster ' + socketUser);
            if(socketUser) { 
-            socket.broadcast.emit('position_update', { 
-            						"user" : socket.user,
+              socket.broadcast.emit('position_update', { 
+            						            "fb_id" : socket.user,
                                     "position" : {
                                     "lat" : data.latitude,
                                     "long" : data.longitude

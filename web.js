@@ -48,7 +48,7 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('position_update', function(data) {
          console.log(data);
-         if(data.x && data.y) {
+         if(data.latitude && data.longitude) {
            
            var socketUser = socket.user;
            

@@ -29,6 +29,11 @@ io.sockets.on('connection', function (socket) {
         console.log('websocket connection close');
     });
 
+    socket.on('disconnect', function () {
+        socket.broadcast.emit('close', {"fb_id" : socket.user});
+        console.log('websocket disconnect');
+    });
+
     socket.on('connect', function(data) {
         socket.user = data.fb_id;
     });

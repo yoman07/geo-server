@@ -21,7 +21,7 @@ The server and client both emit events on the channel objects.
 Client emit event:
 * `connect` - emitted when someone joins the channel with data `fb_id` - this can be any unique id
 * `position_update` - emitted when someone change position with data `latitude` and `longitude` 
-* `photo_received` - emitted when someone make a photo and send to other user with data `fb_id` - receiver id, `image` - image in base64 format and `locationImage` - location where photo was made
+* `send_photo` - emitted when someone make a photo and send to other user with data `fb_id` - receiver id, `image` - image in base64 format and `locationImage` - location where photo was made
 
 
 Server emit event:

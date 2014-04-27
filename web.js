@@ -23,18 +23,18 @@ io.sockets.on('connection', function (socket) {
 
 
 
-    socket.on('close', function() {
-        socket.broadcast.emit('close', {"user_id" : socket.user});
+    socket.on('close', function() {        
         console.log('websocket connection close');
         if(socket.user != null) {
+          socket.broadcast.emit('close', {"user_id" : socket.user});
           delete usersSockets[socket.user];
         }
     });
 
     socket.on('disconnect', function () {
-        socket.broadcast.emit('close', {"user_id" : socket.user});
         console.log('websocket disconnect');
         if(socket.user != null) {
+          socket.broadcast.emit('close', {"user_id" : socket.user});
           delete usersSockets[socket.user];
         }
     });
@@ -54,8 +54,9 @@ io.sockets.on('connection', function (socket) {
         var socketUser  = usersSockets[receiverId];
 
 
-
-        socketUser.emit('photo_received',  {"image" : base64image, "user_id" : myUserId, "position" : locationImage} ); 
+        if(socketUser!= null) {
+            socketUser.emit('photo_received',  {"image" : base64image, "user_id" : myUserId, "position" : locationImage} ); 
+        }
     });
 
     socket.on('position_update', function(data) {

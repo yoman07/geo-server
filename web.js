@@ -24,7 +24,7 @@ io.sockets.on('connection', function (socket) {
 
 
     socket.on('close', function() {
-        socket.broadcast.emit('close', {"fb_id" : socket.user});
+        socket.broadcast.emit('close', {"user_id" : socket.user});
         console.log('websocket connection close');
         if(socket.user != null) {
           delete usersSockets[socket.user];
@@ -32,7 +32,7 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function () {
-        socket.broadcast.emit('close', {"fb_id" : socket.user});
+        socket.broadcast.emit('close', {"user_id" : socket.user});
         console.log('websocket disconnect');
         if(socket.user != null) {
           delete usersSockets[socket.user];
@@ -40,12 +40,12 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('connect', function(data) {
-        socket.user = data.fb_id;
+        socket.user = data.user_id;
         usersSockets[socket.user] = socket;
     });
 
-    socket.on('photo_received', function(data) {
-        var receiverId    = data.fb_id
+    socket.on('send_photo', function(data) {
+        var receiverId    = data.user_id
         var base64image   = data.image;
         var locationImage = data.position;
 
@@ -55,7 +55,7 @@ io.sockets.on('connection', function (socket) {
 
 
 
-        socketUser.emit('photo_received',  {"image" : base64image, "fb_id" : myUserId, "position" : locationImage} ); 
+        socketUser.emit('photo_received',  {"image" : base64image, "user_id" : myUserId, "position" : locationImage} ); 
     });
 
     socket.on('position_update', function(data) {
@@ -67,7 +67,7 @@ io.sockets.on('connection', function (socket) {
            console.log('socketUster ' + socketUser);
            if(socketUser) { 
               socket.broadcast.emit('position_update', { 
-            						            "fb_id" : socket.user,
+            						            "user_id" : socket.user,
                                     "position" : {
                                     "lat" : data.latitude,
                                     "long" : data.longitude
